@@ -1,36 +1,221 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Playwright Form Components Demo
+
+A modern web application built with Next.js and Playwright that demonstrates various form components with a complete authentication flow, header, and footer.
+
+## Overview
+
+This project showcases a collection of reusable form components including SearchBox, RadioButton, Checkbox, Dropdown, FileUpload, FileDownload, and Popup. It also includes a fully functional login page with form validation and error handling.
+
+## Features
+
+- **Form Components Demo**: Interactive demonstration of 7 different form components
+- **Authentication Page**: Complete login flow with username and password validation
+- **Header Navigation**: Sticky header with app branding and login button
+- **Footer**: Multi-column footer with quick links and contact information
+- **Responsive Design**: Mobile-first design using Tailwind CSS
+- **Form Validation**: Real-time validation with error messages on the login page
+- **Testing**: Playwright tests for end-to-end testing
+
+## Tech Stack
+
+- **Framework**: Next.js 16.1.1
+- **Runtime**: React 19.2.3
+- **Styling**: Tailwind CSS 4
+- **Testing**: Playwright 1.57.0
+- **Language**: TypeScript 5
+- **Package Manager**: npm
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── components/
+│   │   ├── Checkbox.tsx
+│   │   ├── Dropdown.tsx
+│   │   ├── FileDownload.tsx
+│   │   ├── FileUpload.tsx
+│   │   ├── Footer.tsx
+│   │   ├── Header.tsx
+│   │   ├── Popup.tsx
+│   │   ├── RadioButton.tsx
+│   │   └── SearchBox.tsx
+│   ├── login/
+│   │   └── page.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+└── ...
+tests/
+├── demo.spec.ts
+└── login.spec.ts
+public/
+package.json
+next.config.ts
+tsconfig.json
+playwright.config.ts
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18 or higher
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/vijayravindran90/nextjs-playwright.git
+cd nextjs-playwright
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Running the Development Server
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Start the development server:
+```bash
+npm run dev
+```
 
-## Learn More
+The application will be available at:
+- **Home Page**: http://localhost:3001/nextjs-playwright
+- **Login Page**: http://localhost:3001/nextjs-playwright/login
 
-To learn more about Next.js, take a look at the following resources:
+### Building for Production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Build the application:
+```bash
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Running Tests
 
-## Deploy on Vercel
+Execute Playwright tests:
+```bash
+npm run test
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Routes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `/` - Root path (redirects to `/nextjs-playwright`)
+- `/nextjs-playwright` - Home page with form components demo
+- `/nextjs-playwright/login` - Login page
+
+## Components
+
+### Form Components
+
+1. **SearchBox** - Search input with filtering capability
+2. **RadioButton** - Radio button selection component
+3. **Checkbox** - Multiple checkbox options
+4. **Dropdown** - Select dropdown component
+5. **FileUpload** - File upload functionality
+6. **FileDownload** - File download functionality
+7. **Popup** - Modal popup component
+
+### Layout Components
+
+- **Header** - Navigation header with login button
+- **Footer** - Footer with links and contact information
+
+## Login Page Features
+
+- Username and password input fields
+- Real-time form validation
+- Error messages display:
+  - "Username is required" when username is empty
+  - "Password is required" when password is empty
+- Visual feedback with red borders on error fields
+- Sign In button with form submission
+- Back to Home link
+
+## Configuration
+
+### Next.js Configuration
+
+```typescript
+// next.config.ts
+const nextConfig: NextConfig = {
+  output: 'export',
+  basePath: '/nextjs-playwright',
+  images: {
+    unoptimized: true,
+  },
+};
+```
+
+- **output**: Static export mode
+- **basePath**: `/nextjs-playwright` - All routes are prefixed with this path
+- **images**: Unoptimized for static export
+
+## Styling
+
+The project uses Tailwind CSS for styling with:
+- Responsive design using Tailwind breakpoints
+- Custom color scheme (indigo and gray palette)
+- Utility-first CSS approach
+
+## Development
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+
+### Code Style
+
+- TypeScript for type safety
+- ESLint for code linting
+- React best practices and hooks
+
+## Testing
+
+### Playwright Tests
+
+Tests are located in the `tests/` directory:
+
+- `demo.spec.ts` - Tests for form components
+- `login.spec.ts` - Tests for login page functionality
+
+Run tests with:
+```bash
+npm run test
+```
+
+## Deployment
+
+The project is configured for static export with the basePath `/nextjs-playwright`. It can be deployed to:
+- GitHub Pages
+- Vercel
+- Any static hosting service
+- Traditional web servers (Apache, Nginx, etc.)
+
+## Browser Support
+
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is part of the nextjs-playwright repository.
+
+## Author
+
+Vijay Ravindran (vijayravindran90)
+
+## Support
+
+For issues and questions, please visit the GitHub repository or create an issue in the project.
