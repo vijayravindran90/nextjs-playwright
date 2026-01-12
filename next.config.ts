@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'export',
-  basePath: '/codespaces-blank',
+  basePath: '/nextjs-playwright',
   images: {
     unoptimized: true,
   },
