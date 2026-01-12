@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('verify and validate the login page @login', async ({ page }) => {
-  await page.goto(`/login`);
+  await page.goto(`/nextjs-playwright/login`);
 
   // Expect a title "to contain" a substring.                           
     await expect(page).toHaveTitle(/Create Next App/);
