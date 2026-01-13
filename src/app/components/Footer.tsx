@@ -25,6 +25,11 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+                <a href="/nextjs-playwright/api" className="hover:text-white transition">
+                  API
+                </a>
+              </li>
+              <li>
                 <a href="/nextjs-playwright/login" className="hover:text-white transition">
                   Login
                 </a>
