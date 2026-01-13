@@ -10,11 +10,12 @@ This project showcases a collection of reusable form components including Search
 
 - **Form Components Demo**: Interactive demonstration of 7 different form components
 - **Authentication Page**: Complete login flow with username and password validation
-- **Header Navigation**: Sticky header with app branding and login button
+- **API Integration Page**: Display external API data with error handling and loading states
+- **Header Navigation**: Sticky header with app branding, API, and login buttons
 - **Footer**: Multi-column footer with quick links and contact information
 - **Responsive Design**: Mobile-first design using Tailwind CSS
 - **Form Validation**: Real-time validation with error messages on the login page
-- **Testing**: Playwright tests for end-to-end testing
+- **Testing**: Playwright tests for end-to-end testing and file download verification
 
 ## Tech Stack
 
@@ -40,6 +41,8 @@ src/
 │   │   ├── Popup.tsx
 │   │   ├── RadioButton.tsx
 │   │   └── SearchBox.tsx
+│   ├── api/
+│   │   └── page.tsx
 │   ├── login/
 │   │   └── page.tsx
 │   ├── globals.css
@@ -47,8 +50,8 @@ src/
 │   └── page.tsx
 └── ...
 tests/
-├── demo.spec.ts
-└── login.spec.ts
+├── components.spec.ts
+├── login.spec.ts
 public/
 package.json
 next.config.ts
@@ -85,6 +88,7 @@ npm run dev
 
 The application will be available at:
 - **Home Page**: http://localhost:3001/nextjs-playwright
+- **API Page**: http://localhost:3001/nextjs-playwright/api (fetches from https://api.predic8.de/shop/v2/products/8)
 - **Login Page**: http://localhost:3001/nextjs-playwright/login
 
 ### Building for Production
@@ -105,6 +109,7 @@ npm run test
 
 - `/` - Root path (redirects to `/nextjs-playwright`)
 - `/nextjs-playwright` - Home page with form components demo
+- `/nextjs-playwright/api` - API integration page that displays external product data
 - `/nextjs-playwright/login` - Login page
 
 ## Components
@@ -121,8 +126,8 @@ npm run test
 
 ### Layout Components
 
-- **Header** - Navigation header with login button
-- **Footer** - Footer with links and contact information
+- **Header** - Navigation header with API and login buttons
+- **Footer** - Footer with quick links (Home, API, Login, About) and contact information
 
 ## Login Page Features
 
@@ -134,6 +139,15 @@ npm run test
 - Visual feedback with red borders on error fields
 - Sign In button with form submission
 - Back to Home link
+
+## API Page Features
+
+- Fetches product data from external API (https://api.predic8.de/shop/v2/products/8)
+- Loading state indicator while fetching data
+- Error handling with user-friendly error messages
+- Displays full JSON response in a formatted code block
+- Shows extracted product fields (name, price, description) when available
+- Dark-themed code block for better readability
 
 ## Configuration
 
@@ -182,8 +196,24 @@ The project uses Tailwind CSS for styling with:
 
 Tests are located in the `tests/` directory:
 
-- `demo.spec.ts` - Tests for form components
+- `components.spec.ts` - Tests for form components including:
+  - SearchBox component
+  - RadioButton component
+  - Checkbox component
+  - Dropdown component
+  - FileDownload component (with file existence verification)
 - `login.spec.ts` - Tests for login page functionality
+
+**File Download Testing**:
+The FileDownload test demonstrates how to verify downloaded files:
+```typescript
+const downloadPromise = page.waitForEvent('download');
+await page.getByRole('button', { name: 'Download Sample File' }).click();
+const download = await downloadPromise;
+const filePath = path.join('./downloads', 'sample-file.txt');
+await download.saveAs(filePath);
+expect(fs.existsSync(filePath)).toBeTruthy();
+```
 
 Run tests with:
 ```bash
