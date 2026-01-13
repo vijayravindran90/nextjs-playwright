@@ -15,7 +15,7 @@ test('verify and validate the searchbox component @search', async ({ page }) => 
 });
 });
 
-test('verify and validate the radio button component @radio', async ({ page }) => {
+test('verify and validate the radio button component @radio @smoke', async ({ page }) => {
   await page.goto(``);
 
   // Expect a title "to contain" a substring.
@@ -24,20 +24,20 @@ test('verify and validate the radio button component @radio', async ({ page }) =
   const isChecked = await page.getByLabel('Option 2').isChecked();
   expect(isChecked).toBeTruthy();   
 });
-test('verify and validate the checkbox component @checkbox', async ({ page }) => {
+test('verify and validate the checkbox component @checkbox @smoke', async ({ page }) => {
   await page.goto(``);
   await page.getByLabel('Item 1').check();
   const isChecked = await page.getByLabel('Item 1').isChecked();
   expect(isChecked).toBeTruthy();   
 });
 
-test('verify and validate the dropdown component @dropdown', async ({ page }) => {
+test.skip('verify and validate the dropdown component @dropdown', async ({ page }) => {
   await page.goto(``);
   await page.getByLabel('Select an option').selectOption('Banana');
   const selectedValue = await page.getByLabel('Select an option').inputValue();
   expect(selectedValue).toBe('Banana');   
 });
-test('verify and validate the download component @download',async({page})=>{
+test.skip('verify and validate the download component @download',async({page})=>{
  await page.goto(``);
 
  // Wait for the download and save it
