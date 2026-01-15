@@ -31,24 +31,40 @@ test('verify and validate the checkbox component @checkbox @smoke', async ({ pag
   expect(isChecked).toBeTruthy();   
 });
 
-test.skip('verify and validate the dropdown component @dropdown', async ({ page }) => {
+test('verify and validate the dropdown component @dropdown @smoke', async ({ page }) => {
   await page.goto(``);
-  await page.getByLabel('Select an option').selectOption('Banana');
-  const selectedValue = await page.getByLabel('Select an option').inputValue();
-  expect(selectedValue).toBe('Banana');   
+  await page.selectOption('#dropdown', 'Banana');
+  await expect(page.locator('//p[text()="Banana"]')).toBeVisible();
 });
-test.skip('verify and validate the download component @download',async({page})=>{
+test('verify and validate the download component @download @smoke',async({page})=>{
  await page.goto(``);
 
  // Wait for the download and save it
- const downloadPromise = await page.waitForEvent('download');
-await page.getByRole('button', { name: 'Download Sample File' }).click();
+ const [downloadPromise] = await Promise.all([
+  page.waitForEvent('download'),
+  page.getByRole('button', { name: 'Download Sample File' }).click()
+]);
 const download = await downloadPromise;
-
-// Save the file
-const filePath = path.join('./downloads', 'sample-file.txt');
-await download.saveAs(filePath);
+let fileName = await download.suggestedFilename();
+await download.saveAs(`./downloads/${fileName}`);
 
 // Check if the file exists
-  expect(fs.existsSync(filePath)).toBeTruthy();
+  expect(fs.existsSync(`./downloads/${fileName}`)).toBeTruthy();
+});
+
+test('verify and validate the upload component @upload @smoke',async({page})=>{
+ await page.goto(``);
+
+ // Wait for upload to complete
+ await page.getByLabel('File Upload').setInputFiles('./downloads/sample.txt');
+ await expect(page.getByText('Uploaded')).toBeVisible();
+});
+
+test('verify and validate the popup component @popup @smoke',async({page})=>{
+ await page.goto(``);
+ await page.getByRole('button', { name: 'Open Popup' }).click();
+  // Wait for modal to appear
+  await expect(page.getByText('Popup Modal').first()).toBeVisible();
+  // Click Confirm button
+  await page.getByRole('button', { name: 'Confirm' }).click();
 });
